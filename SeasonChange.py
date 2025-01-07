@@ -160,79 +160,79 @@ class SeasonalCycle:
                 self.plot_point(x + 2, y)     
 
     def draw_house(self):
-        # Set a consistent color for the house (e.g., yellow for the base and red for the roof)
-        glColor3f(1.0, 1.0, 0.0)  # Yellow for the base
-        # House base
-        self.midpoint_line(300, 200, 500, 200)  # Bottom line
-        self.midpoint_line(300, 200, 300, 350)  # Left wall (shortened height)
-        self.midpoint_line(500, 200, 500, 350)  # Right wall (shortened height)
-        self.midpoint_line(300, 350, 500, 350)  # Top line (adjusted height)
+       
+        glColor3f(1.0, 1.0, 0.0) 
+       
+        self.midpoint_line(300, 200, 500, 200)  
+        self.midpoint_line(300, 200, 300, 350) 
+        self.midpoint_line(500, 200, 500, 350) 
+        self.midpoint_line(300, 350, 500, 350)  
 
-        # Set a different color for the roof
-        glColor3f(1.0, 0.0, 0.0)  # Red for the roof
-        # Roof with a wider base
-        self.midpoint_line(280, 350, 520, 350)  # Extended base line for the roof (adjusted height)
-        self.midpoint_line(280, 350, 400, 450)  # Left roof line (adjusted height)
-        self.midpoint_line(520, 350, 400, 450)  # Right roof line (adjusted height)
+       
+        glColor3f(1.0, 0.0, 0.0) 
+       
+        self.midpoint_line(280, 350, 520, 350) 
+        self.midpoint_line(280, 350, 400, 450) 
+        self.midpoint_line(520, 350, 400, 450)  
 
-        # Set a different color for the door
-        glColor3f(0.4, 0.2, 0.1)  # Dark brown for the door
-        # Door
-        self.midpoint_line(370, 200, 370, 275)  # Left door line (adjusted height)
-        self.midpoint_line(430, 200, 430, 275)  # Right door line (adjusted height)
-        self.midpoint_line(370, 275, 430, 275)  # Top door line (adjusted height)
+       
+        glColor3f(0.4, 0.2, 0.1) 
+     
+        self.midpoint_line(370, 200, 370, 275) 
+        self.midpoint_line(430, 200, 430, 275) 
+        self.midpoint_line(370, 275, 430, 275) 
 
     def draw_tree(self):
-        # Set color for the trunk (brown)
+      
         glColor3f(0.55, 0.27, 0.07)
-        # Trunk (shorter and positioned farther from the house)
-        self.midpoint_line(700, 200, 700, 400)  # Left side of the trunk
-        self.midpoint_line(720, 200, 720, 400)  # Right side of the trunk
-        self.midpoint_line(700, 400, 720, 400)  # Top of the trunk
+       
+        self.midpoint_line(700, 200, 700, 400) 
+        self.midpoint_line(720, 200, 720, 400) 
+        self.midpoint_line(700, 400, 720, 400) 
 
-        # Branches (adjusted for the shorter trunk)
+       
         branch_points = [
-            # Main branches
-            (710, 400, 660, 450),  # Lower left
-            (710, 400, 760, 450),  # Lower right
-            (710, 450, 670, 500),  # Middle left
-            (710, 450, 750, 500),  # Middle right
-            (710, 500, 680, 550),  # Upper left
-            (710, 500, 740, 550),  # Upper right
-            # Sub-branches
-            (660, 450, 640, 500), (760, 450, 780, 500),  # Lower sub-branches
-            (670, 500, 650, 550), (750, 500, 770, 550),  # Middle sub-branches
-            (680, 550, 660, 600), (740, 550, 760, 600),  # Upper sub-branches
-            (710, 550, 710, 650)  # Top branch
+          
+            (710, 400, 660, 450),  
+            (710, 400, 760, 450), 
+            (710, 450, 670, 500),  
+            (710, 450, 750, 500), 
+            (710, 500, 680, 550), 
+            (710, 500, 740, 550), 
+         
+            (660, 450, 640, 500), (760, 450, 780, 500), 
+            (670, 500, 650, 550), (750, 500, 770, 550),  
+            (680, 550, 660, 600), (740, 550, 760, 600),  
+            (710, 550, 710, 650) 
         ]
 
         for start_x, start_y, end_x, end_y in branch_points:
             self.midpoint_line(start_x, start_y, end_x, end_y)
 
-        # Set color for the leaves (green)
-        if self.season == 2:  # Fall
-            glColor3f(1.0, 0.647, 0.0)  # Orange for the leaves
-        elif self.season == 3:  # Winter
+       
+        if self.season == 2: 
+            glColor3f(1.0, 0.647, 0.0)  
+        elif self.season == 3: r
             glColor3f(1.0, 1.0, 1.0)
         else:
             glColor3f(0.1, 0.5, 0.1) 
-        # Leaves (clusters of leaves at the ends of each branch and sub-branch)
+       
         leaf_positions = [
             (660, 450), (760, 450), (670, 500), (750, 500),
             (680, 550), (740, 550), (710, 550),
-            # Leaves on sub-branches
+          
             (640, 500), (780, 500), (650, 550), (770, 550),
             (660, 600), (760, 600), (710, 650)
         ]
 
-        # Increase leaf density around each position
+      
         for center_x, center_y in leaf_positions:
             for dx in range(-15, 16, 5):
                 for dy in range(-15, 16, 5):
-                    if dx**2 + dy**2 <= 225:  # Constrain leaves within a circle of radius 15
+                    if dx**2 + dy**2 <= 225: 
                         self.midpoint_circle(center_x + dx, center_y + dy, random.randint(2, 5))
 
-        # Additional random leaves around the top of the tree
+       
         for _ in range(100):
             random_x = random.randint(640, 780)
             random_y = random.randint(500, 650)
@@ -257,7 +257,7 @@ class SeasonalCycle:
         self.draw_snow()
         self.draw_leaves()
         self.draw_house()
-        self.draw_tree()  # Draw the tree with more branches and leaves
+        self.draw_tree() 
         glutSwapBuffers()
 
 
